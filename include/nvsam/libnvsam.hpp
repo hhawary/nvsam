@@ -4,7 +4,7 @@
 #include <rclcpp/rclcpp.hpp>
 
 extern "C" {
-    bool create_module(std::shared_ptr<rclcpp::Node> node);
+    std::shared_ptr<rclcpp::Node> create_module(rclcpp::executors::MultiThreadedExecutor & exec, const rclcpp::NodeOptions & options);
 }
 
 #endif  // NVSAM_HPP

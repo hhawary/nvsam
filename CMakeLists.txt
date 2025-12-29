@@ -13,10 +13,14 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-
+find_package(ZED 4 REQUIRED)
+find_package(CUDA REQUIRED)
+find_package(class_loader REQUIRED)
+find_package(rclcpp_components REQUIRED)
+find_package(zed_components REQUIRED)
 
 # include
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include ${ZED_INCLUDE_DIRS} ${CUDA_INCLUDE_DIRS})
 
 add_executable(nvsam src/nvsam.cpp)
 
@@ -28,9 +32,9 @@ set_target_properties(nvsam PROPERTIES
   INSTALL_RPATH "$ORIGIN/"
 )
 
-target_link_libraries(nvsam ${CMAKE_CURRENT_SOURCE_DIR}/lib/libnvsam_shared.so)
+target_link_libraries(nvsam ${CMAKE_CURRENT_SOURCE_DIR}/lib/libnvsam_shared.so class_loader::class_loader)
 
-ament_target_dependencies(nvsam rclcpp)
+ament_target_dependencies(nvsam rclcpp rclcpp_components zed_components)
 
 add_definitions(-O2 -pthread)
 
@@ -41,12 +45,6 @@ install(TARGETS nvsam
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/lib/libnvsam_shared.so
   DESTINATION lib/${PROJECT_NAME}
-)
-
-# Install URDF files
-install(DIRECTORY
-  urdf
-  DESTINATION share/${PROJECT_NAME}
 )
 
 install(DIRECTORY
