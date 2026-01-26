@@ -68,6 +68,12 @@ def launch_setup(context, *args, **kwargs):
 
     max_dist = LaunchConfiguration('max_distance')
     fps = LaunchConfiguration('fps')
+    frame_id = LaunchConfiguration('frame_id')
+    resolution = LaunchConfiguration('grid_resolution')
+    size_x = LaunchConfiguration('grid_size_x')
+    size_y = LaunchConfiguration('grid_size_y')
+    max_height = LaunchConfiguration('grid_max_height')
+    min_height = LaunchConfiguration('grid_min_height')
 
     ros_params_override_path = LaunchConfiguration('ros_params_override_path')
 
@@ -127,7 +133,13 @@ def launch_setup(context, *args, **kwargs):
                 'pos_tracking.publish_map_tf': publish_map_tf,
                 'sensors.publish_imu_tf': publish_imu_tf,
                 'max_distance': max_dist,
-                'fps': fps
+                'fps': fps,
+                'frame_id': frame_id,
+                'resolution': resolution,
+                'size_x': size_x,
+                'size_y': size_y,
+                'max_height': max_height,
+                'min_height': min_height
             },
             ros_params_override_path,
         ]
@@ -225,12 +237,36 @@ def generate_launch_description():
                 description='The connection port of the simulation server. See the documentation of the supported simulation plugins for more information.'),
             DeclareLaunchArgument(
                 'max_distance',
-                default_value='25.0',
+                default_value='20.0',
                 description='The maximum distance to process'),
             DeclareLaunchArgument(
                 'fps',
                 default_value='15.0',
                 description='Set target FPS.'),
+            DeclareLaunchArgument(
+                'frame_id',
+                default_value='zed_camera_link',
+                description='Set target frame_id'),
+            DeclareLaunchArgument(
+                'grid_resolution',
+                default_value='0.15',
+                description='Set Grid Resolution'),
+            DeclareLaunchArgument(
+                'grid_size_x',
+                default_value='40.0',
+                description='Set Grid Size X'),
+            DeclareLaunchArgument(
+                'grid_size_y',
+                default_value='40.0',
+                description='Set Grid Size Y'),
+            DeclareLaunchArgument(
+                'grid_max_height',
+                default_value='0.5',
+                description='Set Grid Max Height'),
+            DeclareLaunchArgument(
+                'grid_min_height',
+                default_value='-2.5',
+                description='Set Grid Min Height'),
             OpaqueFunction(function=launch_setup)
         ]
     )

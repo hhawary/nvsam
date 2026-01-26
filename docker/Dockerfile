@@ -49,6 +49,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends ros-humble-perc
 
 RUN apt-get update && apt-get install -y --no-install-recommends libcublas-12-0 libcusolver-12-0 libcurand-12-0 && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y --no-install-recommends ros-humble-rviz2 ros-humble-xacro ros-humble-nmea-msgs ros-humble-geographic-msgs ros-humble-robot-localization && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends ros-humble-rviz2 ros-humble-xacro ros-humble-nmea-msgs ros-humble-geographic-msgs ros-humble-robot-localization ros-humble-pcl-ros && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /
